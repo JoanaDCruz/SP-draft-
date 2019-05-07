@@ -1,0 +1,617 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% UP MATH Department Graduate Thesis Document Style %
+% Modified from ncsu.sty                                 %
+% Send comments, questions to                            %
+% Ric del Rosario or Joma Escaner                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\typeout{Using UPLB Math Special Problem Option.}
+
+% Define a null command for comments
+\long\def\comment#1{}
+
+\comment{
+
+  Example of using the SP option:
+    \documentclass[uplbmath]{report}
+    \begin{document}
+    \title{How to Write Theses\\
+        With Two Line Titles}
+    \author{John Henry Candidate}
+
+    \beforepreface
+
+    \chapter*{Preface}
+        This thesis tells you all you need to know about...
+    \chapter*{Acknowledgements}
+        I would like to thank...
+
+    \tableofcontents
+    \listoftables
+    \listoffigures
+
+    \addchapter*{List of Symbols}
+    \begin{tabbing}
+         ...
+
+    \afterpreface
+
+    \chapter{Introduction}
+         ...
+    \chapter{Conclusions}
+         ...
+
+    \bibliographystyle{plain}
+    \bibliography{mybib}
+
+    \appendix
+    \chapter{A Long Proof}
+         ...
+    \chapter{And Another One}
+         ...
+    \end{document}
+
+Documentation:
+    This option
+      - sets the margins and interline spacing
+      - disallows page breaks at hyphens
+      - modifies figure captions to be \bf and \protect'ed
+      - allows line breaks in multiple citations
+      - formats the title page and produces a copyright page (optionally)
+      - Changes title of the bibliography to ``References''
+
+    The \beforepreface command creates the title page, the certification page
+    and a copyright page (optionally).  Then the user should put preface section(s),
+    using the \chapter*{section title} command, followed by
+    the desired tables of contents (e.g., \tableofcontents,
+    \listoftables, \listoffigures).  Additional preface sections (such
+    as a list of symbols) can be included after the tables of
+    contents--use \addchapter*{section title} for these sections to
+    include them in the table of contents.  The \afterpreface command
+    then sets things up to start the main body (on arabic page 1).
+
+    The following commands can control what goes in the front matter
+    material:
+
+    for the title and certification pages:
+    \title{thesis title}
+    \author{author's name}
+    \thesistype{e.g., thesis, dissertation, thesis proposal}
+        - Masteral Thesis if omitted
+    \degree{e.g., Bachelor of Science, Master of Science, Doctor of Philosophy}
+        - Masters of Science in Mathematics if omitted
+    \specialization{e.g., Operations Research, Actuarial Mathematics}
+        - optional
+    \university{university name}
+        - University of the Philippines if omitted
+    \location{location of university}
+        - Diliman, Quezon City
+    \dept{author's department/institute}
+        - Department of Mathematics if omitted
+    \college{author's college/unit}
+        - College of Science if omitted
+    \adviser{author's adviser}
+    \chairman{department/institute chair/director}
+    \submitdate{month year in which submitted}
+        - date LaTeX'd if omitted
+
+    for the copyright page:
+    \copyrightyear{year degree conferred (next year if submitted in Dec.)}
+        - year LaTeX'd (or next year, in December) if omitted
+    \copyrighttrue or \copyrightfalse
+        - produce or don't produce a copyright page (false by default)
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\makeatletter
+% We need 1" margins for whitespace (i.e., to where page numbers or
+% headers begin) except on the binding edge, where it is 1 1/2"
+\oddsidemargin 0.5in
+\evensidemargin 0in
+\textwidth 6in
+\topmargin -0.2in
+\textheight 8.7in
+\headsep .3in
+% Disallow page breaks at hyphens (this will give some underfull vbox's,
+% so an alternative is to use \brokenpenalty=100 and manually search
+% for and fix such page breaks)
+\brokenpenalty=10000
+
+% For some environments we switch back to single-spacing, also
+% provide \dsp in case you need double-spacing where single-spacing
+% is otherwise used.
+%   NOTE: the use of \large immediately followed \normalsize is
+%     because \baselineskip, the distance between lines, is not
+%     affected until the font size is changed.
+\def\ssp{\def\baselinestretch{1.00}\large\normalsize}
+\def\dsp{\def\baselinestretch{2.00}\large\normalsize}
+\def\hsp{\def\baselinestretch{1.50}\large\normalsize}
+
+
+% Chapter Headings (modified version from `rep11.sty', same as `rep10.sty')
+%   - reduce the size of chapter headings by two size increments
+%       (e.g., Huge -> LARGE, huge -> Large)
+%%%%
+%\def\@makechapterhead#1{ \vspace*{0pt} { \parindent 0pt \raggedright					%settings for the main heading
+% \ifnum \c@secnumdepth >\m@ne \begin{center} \bf\LARGE \@chapapp{} \thechapter \par
+% \fi {\bf\LARGE #1}\end{center}\par	%settings for the major subsection
+% \nobreak \vskip 4pt } }
+
+%%%% modified version for UPLB GS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\@makechapterhead#1{ \vspace*{-.7in} { \parindent 0pt \raggedright					%settings for the main heading
+ \ifnum \c@secnumdepth >\m@ne \begin{center} \bf{\Large  \@chapapp{} \thechapter} \par \fi% 
+ {\bf\large #1} \end{center} \par	\nobreak \vskip 4pt}}
+
+%\def\@makeschapterhead#1{  \vspace*{-.1in} { \begin{center} \uppercase \parindent 0pt \raggedright % settings for chapter*{} headings
+%  \bf #1\par
+% \nobreak \vskip 5pt \end{center} } }
+
+\def\@makeschapterhead#1{ \vspace*{-.5in} { \parindent 0pt \raggedright	% settings for chapter*{} headings
+  \bf #1\par
+ \nobreak \vskip 0pt }  }
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+% Also reduce the size of chapter*{} headings:
+
+%\def\@makeschapterhead#1{ \vspace*{5pt} { \parindent 0pt \raggedright
+% \Large \bf #1\par
+% \nobreak \vskip 5pt } }
+
+%\def\@makeschapterhead#1{ \vspace*{5pt} { \parindent 0pt \raggedright	%settings for the minor subsections
+% \Large \bf #1\par
+% \nobreak \vskip 0pt }  }
+ 
+% To allow running page footers:
+
+\def\leftfoot#1{\gdef\@leftfoot{#1}}
+\def\rightfoot#1{\gdef\@rightfoot{#1}}
+
+% Default initialization of footers:
+\def\@leftfoot{}
+\def\@rightfoot{}
+
+% Plain page style (modified version from `report.sty')
+%   - modify \@oddfoot to contain footer information:
+
+\def\ps@plain{\let\@mkboth\@gobbletwo
+     \def\@oddhead{}%
+     
+     \def\@oddfoot{\rm\makebox[.4\linewidth][l]\@leftfoot%
+       \hfil\thepage\hfil\makebox[.4\linewidth][r]\@rightfoot}%
+       
+     %\def\@evenhead{\hfill \underline{Page}}%
+     %\def\@oddhead{\hfill \underline{Page}}%
+     \let\@evenfoot\@oddfoot}
+     
+% Defined variable for page style (modified version from `report.sty')
+%   - modify \@oddhead to contain page number only:
+
+
+% Running headers (modified version from `report.sty'):
+%   - do not force running headers to uppercase
+%   - modify \@oddfoot and \@evenfoot to contain footer information
+%     (if two-sided, reverse left and right footers on even numbered pages):
+
+\if@twoside \def\ps@headings{\let\@mkboth\markboth
+\def\@oddfoot{\rm\@leftfoot\hfil\@rightfoot}%
+\def\@evenfoot{\rm\@rightfoot\hfil\@leftfoot}%
+\def\@evenhead{\rm \thepage\hfil \sl \leftmark}
+\def\@oddhead{\hbox{}\sl \rightmark \hfil \rm\thepage}%
+\def\chaptermark##1{\markboth {\ifnum \c@secnumdepth >\m@ne  \@chapapp\ \thechapter. \ \fi ##1}{}}%
+\def\sectionmark##1{\markright {\ifnum \c@secnumdepth >\z@ \thesection. \ \fi ##1}}}
+ 
+\else 
+
+\def\ps@headings{ \let\@mkboth\markboth
+\def\@oddfoot{\rm\@leftfoot\hfil\@rightfoot}%
+\def\@evenfoot{}\def\@oddhead{\hbox {}\sl \rightmark \hfil \rm\thepage}%
+\def\chaptermark##1{\markright {\ifnum \c@secnumdepth >\m@ne  \@chapapp\ \thechapter. \ \fi ##1}}} \fi
+\def\ps@myheadings{\let\@mkboth\@gobbletwo
+\def\@oddhead{\hbox{}\sl\rightmark \hfil \rm\thepage}%
+\def\@oddfoot{}%
+\def\@evenhead{\rm \thepage\hfil\sl\leftmark\hbox{}}%
+\def\@evenfoot{}%
+\def\sectionmark##1{}%
+\def\subsectionmark##1{}}
+
+%-modified myheadings
+
+\def\ps@myheadingsmodified{\let\@mkboth\@gobbletwo
+\def\@oddhead{\hfill \rm\thepage}%		%\thepage: page number (only on the upper right corner)
+\def\@evenhead{\rm\thepage}%	%\thepage: page number (only on the upper right corner)
+\def\@oddfoot{}%
+\def\@evenfoot{}%
+}% 
+\def\ps@headingstoc{%
+\def\@oddhead{\hfil \underline{\bf Page} }%
+\def\@evenhead{\hfil \underline{\bf Page} }%
+}%
+
+% Floating Environments (modified version from `latex.tex'):
+%   - sets floats (e.g., figures and tables) to be single spaced
+\def\@xfloat#1[#2]{\ifhmode \@bsphack\@floatpenalty -\@Mii\else
+   \@floatpenalty-\@Miii\fi\def\@captype{#1}\ifinner
+      \@parmoderr\@floatpenalty\z@
+    \else\@next\@currbox\@freelist{\@tempcnta\csname ftype@#1\endcsname
+       \multiply\@tempcnta\@xxxii\advance\@tempcnta\sixt@@n
+       \@tfor \@tempa :=#2\do
+                        {\if\@tempa h\advance\@tempcnta \@ne\fi
+                         \if\@tempa t\advance\@tempcnta \tw@\fi
+                         \if\@tempa b\advance\@tempcnta 4\relax\fi
+                         \if\@tempa p\advance\@tempcnta 8\relax\fi
+         }\global\count\@currbox\@tempcnta}\@fltovf\fi
+    \global\setbox\@currbox\vbox\bgroup
+    \ssp\@normalsize                    % this line added
+    \boxmaxdepth\z@
+    \hsize\columnwidth \@parboxrestore}
+
+% Footnotes (modified version from `latex.tex'):
+%   - sets footnotes to be single spaced
+\long\def\@footnotetext#1{\insert\footins{\ssp\footnotesize % added \ssp
+    \interlinepenalty\interfootnotelinepenalty
+    \splittopskip\footnotesep
+    \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+    \hsize\columnwidth \@parboxrestore
+   \edef\@currentlabel{\csname p@footnote\endcsname\@thefnmark}\@makefntext
+    {\rule{\z@}{\footnotesep}\ignorespaces
+      #1\strut}}}
+
+% Captions (modified version from `report.sty'):
+%   - put the figure number in boldface
+%   - protect the caption
+\long\def\@makecaption#1#2{\protect         % added \protect
+ \vskip 10pt
+ \setbox\@tempboxa\hbox{{\bf #1}. #2}           % added {\bf ...}
+ \ifdim \wd\@tempboxa >\hsize \unhbox\@tempboxa\par \else \hbox
+to\hsize{\hfil\box\@tempboxa\hfil}
+ \fi}
+
+% a version of itemize that has no space between the items
+\renewenvironment{itemize}{\begin{list}{$\bullet$}
+{\setlength{\rightmargin}{\leftmargin}
+\setlength{\itemsep}{0em}
+\setlength{\topsep}{0em}
+\setlength{\parsep}{0em}}}{\end{list}}
+
+% like the default itemize (i.e., extra space between items)
+\newenvironment{bigitemize}{\begin{list}{$\bullet$}
+{\setlength{\rightmargin}{\leftmargin}}}{\end{list}}
+
+% Thebibliography (modified version from `report.sty'):
+%   - change the title to `List of References'
+%   - go ahead and add it to the table of contents
+\def\thebibliography#1{\chapter*{\begin{center}{\uppercase {References}}\end{center}\@mkboth
+  {References}{References}}
+  \thispagestyle{myheadingsmodified}% 
+  \addcontentsline{toc}{chapter}{\uppercase {References}}%\dotfill} %removed dots...
+  \list{[\arabic{enumi}]}{\settowidth\labelwidth{[#1]}\leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \usecounter{enumi}}
+    \def\newblock{\hskip .11em plus .33em minus -.07em}
+    \sloppy\clubpenalty4000\widowpenalty4000
+    \sfcode`\.=1000\relax}
+\let\endthebibliography=\endlist
+
+%this will remove the \dotfills in \tableofcontents
+%it should be placed befor \tableofcontents
+\renewcommand{\@dotsep}{10000}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Table of Contents (modified version from `report.sty'):
+%   - change the title to `Table of Contents', uppercase
+%   - change to single space, 
+\def\tableofcontents{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn\fi
+\chapter*{\begin{center} {\uppercase {Table of Contents}} \end{center}   
+\begin{flushright} \underline{\bf Page} \end{flushright} 
+  \@mkboth{Table of Contents}{Table of Contents}}
+  \addcontentsline{toc}{chapter}{Table of Contents}
+%\vspace{-.3in}
+ {\ssp\@starttoc{toc}}\if@restonecol\twocolumn\fi%
+ }
+ 
+% List of Figures (modified version from `report.sty'):
+%   - change to single space \underline{Page}
+%   - add to table of contents
+\def\listoffigures{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
+ \fi\chapter*{\begin{center}{\uppercase {List of Figures}}\end{center}
+ \hspace{.1in} \underline{Figure} \hspace{4.8in} \underline{Page}
+ \@mkboth {List of Figures}{List of Figures}}{\ssp\@starttoc{lof}}\if@restonecol\twocolumn
+ \fi\addcontentsline{toc}{chapter}{List of Figures}}% \dotfill}}
+
+% List of Tables (modified version from `report.sty'):
+%   - change to single space
+%   - add to table of contents
+\def\listoftables{\@restonecolfalse\if@twocolumn\@restonecoltrue\onecolumn
+ \fi\chapter*{\begin{center}{\uppercase {List of Tables}}\end{center} %
+  \hspace{.1in} \underline{Table} \hspace{4.8in} \underline{Page} 
+  \@mkboth{List of Tables}{List of Tables}}{\ssp\@starttoc{lot}}\if@restonecol\twocolumn
+ \fi\addcontentsline{toc}{chapter}{List of Tables}}%\dotfill}}
+
+% Citations (modified version from `latex.tex'):
+%   - add space between multiple citations
+%   - do not box citations
+
+\def\@citex[#1]#2{\if@filesw\immediate\write\@auxout{\string\citation{#2}}\fi
+  \def\@citea{}\@cite{\@for\@citeb:=#2\do
+    {\@citea\def\@citea{, }\@ifundefined        % added space after `,'
+       {b@\@citeb}{{\bf ?}\@warning
+       {Citation `\@citeb' on page \thepage \space undefined}}%
+{\csname b@\@citeb\endcsname}}}{#1}}     
+       % removed the \hbox
+
+% \author, \title, \adviser, and \chairman are defined in report;
+%here are the rest of the front matter defining macros
+
+\def\authorfirst#1{\gdef\@authorfirst{#1}}
+\def\authorlast#1{\gdef\@authorlast{#1}}
+\def\authormiddle#1{\gdef\@authormiddle{#1}}
+\def\authormiddleinitial#1{\gdef\@authormiddleinitial{#1}}
+\def\institute#1{\gdef\@institute{#1}}
+\def\university#1{\gdef\@university{#1}}
+\def\degree#1{\gdef\@degree{#1}}
+\def\course#1{\gdef\@course{#1}}
+\def\specialization#1{\gdef\@specialization{#1}}
+\def\submitdatemonth#1{\gdef\@submitdatemonth{#1}}
+\def\submitdateyear#1{\gdef\@submitdateyear{#1}}
+\def\adviser#1{\gdef\@adviser{#1}}
+\def\firstmember#1{\gdef\@firstmember{#1}}
+\def\secondmember#1{\gdef\@secondmember{#1}}
+\def\director#1{\gdef\@director{#1}}
+\def\dean#1{\gdef\@dean{#1}}
+\def\abs#1{\gdef\@abs{#1}}
+\def\symbols#1{\gdef\@symbols{#1}}
+
+\def\@title{ }
+\def\@authorfirst{ }
+\def\@authorlast{ }
+\def\@authormiddleinitial{ }
+\def\@authormiddle{ }
+\def\@adviser{ }
+\def\@firstmember{ }
+\def\@secondmember{ }
+\def\@director{ }
+\def\@dean{ }
+\def\@institute{ }
+\def\@university{ }
+\def\@specialization{ }
+\def\@degree{ }
+\def\@course{ }
+\def\@abs{}
+\def\@symbols{ }
+%\def\@submitdate{\ifcase\the\month\or
+%  January\or February\or March\or April\or May\or June\or
+%  July\or August\or September\or October\or November\or December\fi
+%  \space \number\the\year}
+%\def\@defensedate{\ifcase\the\month\or
+%  January\or February\or March\or April\or May\or June\or
+%  July\or August\or September\or October\or November\or December\fi
+%  \space \number\the\year}
+% December theses should have the next year as the copyright year
+%\ifnum\month=12
+%    \@tempcnta=\year \advance\@tempcnta by 1
+%    \edef\@copyrightyear{\number\the\@tempcnta}
+%\else
+%    \def\@copyrightyear{\number\the\year}
+%\fi
+
+\newif\ifspecialize \specializefalse
+%\newif\ifcoadvise \coadvisefalse
+%\newif\ifcopyright \copyrightfalse
+%\newif\ifauthorext \authorextfalse
+\newif\ifbiodata \biodatafalse
+\newif\ifacknowledge \acknowledgefalse
+
+% this will organize the title page
+
+\def\titlep{%
+		\addcontentsline{toc}{chapter}{Title Page}
+    \thispagestyle{empty}%
+    
+    \vspace{2.5in}
+    
+    \begin{center}
+        {\bf\large\uppercase\expandafter {Distance Bounds on the Images of \\Linear Block Codes Over Finite\\ Semi-Local Frobenius Rings}}
+    \end{center}
+    
+    \vspace{1.5in}
+    
+    \begin{center}
+      	{\uppercase\expandafter {\@authorfirst}} \hspace{.01in} {\uppercase\expandafter{\@authormiddle}} \hspace{.01in} {\uppercase\expandafter{\@authorlast}}
+    \end{center}
+    
+    \vspace{1.5in}
+    
+    \begin{center}
+         {\uppercase {Submitted to the faculty of the graduate school}} \\
+         {\uppercase\expandafter{\@university}} \\ 
+         {\uppercase {In partial fulfillment of the}} \\ 
+         {\uppercase {requirements for}} \\ 
+         {\uppercase {the degree of}} \\
+    \end{center}
+    
+    \vspace{0.5in}
+    
+    \begin{center}
+        {\uppercase\expandafter{\@degree}} \\
+        {{(\@course)}} \\
+        \ifspecialize(\@specialization)\fi
+    \end{center}
+    
+    \vspace{0.5in}
+    
+    \begin{center}
+				{\expandafter{\@submitdatemonth \ \@submitdateyear}}
+    \end{center}
+    \vfill
+    \newpage}
+
+%\def\copyrightpage{%
+%    \null\vfill
+%    \begin{center}
+%        \Large\copyright\ Copyright \@copyrightyear\\
+%        by\\
+%        \@author\\
+%    \end{center}
+%    \vfill
+%    \newpage}
+\def\certscanned{%
+
+%\hspace{-.2in}\includegraphics[scale=1]{approvalpage.jpg}
+}
+
+\def\certification{
+    \addcontentsline{toc}{chapter}{Approval Page}
+    \dsp The thesis hereto attached, entitled {\bf``}{\bf\uppercase\expandafter {\@title}}{\bf,''} prepared and submitted by
+{\bf\uppercase\expandafter{\@authorfirst}} {\bf\uppercase\expandafter{\@authormiddle}} {\bf\uppercase\expandafter{\@authorlast}} in partial fulfillment of the requirements for the degree of {\uppercase\expandafter{\@degree}}
+{(\uppercase\expandafter{\@course})} is hereby accepted.
+    
+    \ssp
+    
+    \vspace{0.35in}
+\begin{multicols}{2}
+	\begin{center}    
+			{\uppercase\expandafter{\@firstmember}}			 \\
+			Member, Guidance Committee 			 \\
+			\underline{\hspace{2.5in}}			 \\
+			(Date Signed)										 \\		
+	\end{center}
+			
+	\begin{center}	
+			{\uppercase\expandafter{\@secondmember}} \\
+			Member, Guidance Committee \\
+			\underline{\hspace{2.5in}} \\
+			(Date Signed) \\
+	\end{center}    
+\end{multicols}
+		
+		\vspace{0.15in}
+		
+\begin{center}
+		{\uppercase\expandafter{\@adviser}} \\
+		Chair, Guidance Committee \\
+		\underline{\hspace{2.5in}} \\
+		(Date Signed) \\
+\end{center}
+
+	\vspace{-0.1in}
+		
+		Accepted in partial fulfillment of the requirements for the degree of {\uppercase\expandafter{\@degree}} \ {(\uppercase\expandafter{\@course})}.
+
+	\vspace{0.15in}		
+
+\begin{center}
+		{\uppercase\expandafter{\@director}} \\
+		Director \\
+		{\@institute} \\
+		\underline{\hspace{2.5in}} \\
+		(Date Signed) 
+\end{center}
+    
+    \vspace{0.35in}
+\begin{center}
+		{\uppercase\expandafter{\@dean}} \\
+		Dean, Graduate School \\
+		{\@university} \\
+		\underline{\hspace{2.5in}} \\
+		(Date Signed) 
+\end{center}
+\vfill
+    \newpage}
+
+%\def\coadviserpresent{   
+%    \begin{center}\ssp\begin{tabular}{c}{\bf \sc \@adviser}\\ Co-Adviser\end{tabular}
+%    \hfill\begin{tabular}{c}{\bf \sc \@coadviser}\\
+%    Co-Adviser\end{tabular}\end{center}\vfill
+%    \begin{center}\ssp{\bf \sc \@reader}\\ Reader\end{center}}
+
+%\def\coadviserabsent{
+%    \hfill \ssp\begin{tabular}{c}{\bf \sc \@adviser}\\Special Problem Adviser\end{tabular}}
+
+
+\def\beforepreface{%
+    \pagenumbering{roman}
+    \pagestyle{plain}
+    \titlep
+    \certification
+    %\addcontentsline{toc}{chapter}{Approval Page}
+    %\certscanned
+    %\include{publicannounce}
+    
+    %\addcontentsline{toc}{chapter}{Biographical Sketch}
+    \ifbiodata\include{biodata}\fi
+    
+    \addcontentsline{toc}{chapter}{Acknowledgement}
+    \ifacknowledge\include{acknowledgements}\fi
+        
+    %\abstractpage
+    %\ifcopyright\copyrightpage\fi
+}
+
+\def\abstractpage{\addcontentsline{toc}{chapter}{Abstract}%\dotfill}
+\vspace*{0.1in}
+\centerline{\bf ABSTRACT}
+\vspace{0.5in}
+\noindent
+%\begin{tabular}{l}
+ \ssp{  \begin{tabbing}
+\={\uppercase\expandafter{\@authorlast}}, {\uppercase\expandafter{\@authorfirst}} {\@authormiddleinitial} {\@university}, {\@submitdatemonth} {\@submitdateyear}.\\
+%    {\bf \@title}
+%   \end{tabular}\\
+\>{\bf Distance Bounds on the Images of Linear Block Codes over Finite Semi-}\\
+\>{\bf Local Frobenius Rings}\\
+%\noindent\begin{tabular}{l}
+\> $\;\;\;$\\
+\> $\;\;\;$\\
+\> \textbf{Major Professor:}{\bf \@adviser}
+%	\end{tabular}
+\end{tabbing}}
+%\vspace{0.15in}
+%\thispagestyle{empty}
+\ssp{\indent  
+This study focuses on the construction of field codes as images of linear block codes over finite semi-local Frobenius rings, and the derivation of certain distance bounds on the image codes as functions of the distances and other parameters that characterize the ring codes. In particular we highlight the application of the commutative ring $R_p= \FF_{p^k}+v\FF_{p^k}$, which is shown to be isomorphic to the product $\FF_{p^k}^2$ and the polynomial quotient ring  $\FF_{p^k}[x]/(h(x))$, where $h(x)$ is some suitable polynomial over $\FF_{p^k}$. A complete structural analysis of this ring is given in this thesis.
+\vskip .1in
+Finite Frobenius rings are considered to be the most appropriate rings for practical purposes, not only for their isometric property, but also because the most important theorems in coding theory, such as the extension theorem and the MacWilliams identities, find nice generalizations in these rings. The balanced semi-local property of $R_p$, on the other hand, which is basically structural, is found to impose heavily on the determination of the homogeneous weight on $R_p$ in terms of its generating character, and on the encoding process itself. The outcome varies from classical results that pertain to codes over finite chain rings or Galois rings. 
+\vskip .1in
+Initially we give bounds on the minimum Hamming distance $d$ of the linear block code $B$ over $R_p$ in terms of the other weight functions that can be defined on $B$ such as the Bachoc weight and the normalized homogeneous weight.  
+\vskip .1in 
+It is shown that the $p^k$-ary image of $B$ of length $n$, denoted by $\psi(B)$, is a linear block code of length $2n$ over $\FF_{p^k}$, where $\psi$ is an $\FF_{p^k}$-module homomorphism from $R_p^n$ to $\FF_{p^k}^{2n}$ that is defined with respect to any ordered basis of $R_p$. In particular, if $B$ is a free rate-$k/n$ linear block code, then the rate of $\psi(B)$, as a free linear block code over $\FF_{p^k}$, is $2k/2n$. Likewise the standard form of the generator matrix of the image code is given for specific cases showing the effect of the two classes of incongruent zero divisors of $R_p$. 
+\vskip .1in
+The Singleton bound for the minimum Hamming distance $\delta$ of $\psi(B)$ is presented in terms of the length $n$ and rank $k$ of $B$. Further, the Plotkin bound for $\delta$ is given as a function of $n$, the cardinality $|B|$, and the average value $\Gamma$ of the Hamming weight on $\FF_{p^k}$ which is proved to be homogeneous. The distance $\delta$ is shown to also satisfy $\Gamma d \le \delta \le 2d$, which behaves like the bound of Rains on codes over the quaternary ring $\ZZ_4$ in terms of the Lee weight. Further a sharper Rabizzoni-type bound on $\delta$ is determined in terms of the cardinality of the subcode generated by a minimum-weight word of $B$. In this connection, we give a classification of minimum-weight words of $B$ in terms of the structure of $R_p$. $MAGMA^\circledR$ routines are designed to generate new codes that are considered optimal with respect to these bounds.
+\vskip .1in
+Finally, two constructions of binary convolutional codes from linear block codes over $\FF_{2^k}+v\FF_{2^k}$, where $v^2=v$, are presented. In both cases, if the linear block code is systematic, then the resulting convolutional code is systematic, minimal, basic and non-catasthropic, and the free distance of the convolutional code is bounded below by the minimum Hamming distance of the block code.}}%\@abs}
+
+
+%\def\summary{\chapter*{\begin{center}{\uppercase {SUMMARY AND CONCLUSION}}\end{center}} 
+%\addcontentsline{toc}{chapter}{\uppercase {SUMMARY AND CONCLUSIONS}}%
+%\thispagestyle{myheadingsmodified}%
+%\vs
+%\indent
+
+%\def\appendix{\chapter*{\begin{center}{\uppercase {APPENDIX}}\end{center}}
+%\addcontentsline{toc}{chapter}{\uppercase {APPENDIX}}% 
+
+%\def\listofsymbols{\chapter*{\begin{center}{\uppercase {List of Symbols}}\end{center}}
+%\@symbols{} \addcontentsline{toc}{chapter}{{List of Symbols}}
+%\begin{tabular}{llr}
+%}
+
+
+\def\addchapter*#1{%
+    \chapter*{#1}
+    \addcontentsline{toc}{chapter}{#1} \dotfill}
+
+\def\afterpreface{
+		\newpage
+    \pagenumbering{arabic}
+    \pagestyle{myheadingsmodified}
+    
+}
+
+\parskip 12pt
+
+\makeatother
+
+% END OF UPMATHBS.STY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

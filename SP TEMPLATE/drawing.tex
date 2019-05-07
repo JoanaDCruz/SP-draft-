@@ -1,0 +1,332 @@
+\documentclass[12pt]{report}
+
+\usetikzlibrary{decorations.pathmorphing, patterns,shapes,arrows}
+
+\pgfdeclarepatternformonly{zigzagpat}
+{\pgfpointorigin}
+{\pgfpoint{8mm}{2mm}} % Upper right corner so the box is 8x2 mm
+{\pgfpoint{8mm}{1mm}} % The tile size is smaller than the picture itself 
+                      % So the teeth are getting closer
+{
+\pgfdecoration{{zigzag}{\pgfdecoratedpathlength}{%Setting up the decoration for the full path
+                        \pgfdecorationsegmentlength=4mm      % The zigzag thread width
+                        \pgfdecorationsegmentamplitude=1mm   % The zigzag thread height
+                   }
+              }
+\pgfpathmoveto{\pgfpoint{0cm}{1mm}}        % So first we move 1 mm up
+\pgfpathlineto{\pgfpoint{8mm}{1mm}}        % And draw a straight horizontal line to the end of our box
+\endpgfdecoration                          % Close the decoration environment
+\pgfusepathqstroke                         % Now draw the decorated path
+}
+
+\usepackage{uplb_gs_modified_forVPS,amssymb,amsmath,amsthm,epsfig,multicol,graphicx,url}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{setspace}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{lscape}
+\setcounter{MaxMatrixCols}{30}
+\usepackage{ifpdf}
+\usepackage[utf8]{inputenc}
+\usepackage[UKenglish]{babel}
+\usepackage{chngcntr}
+\usetikzlibrary{decorations.pathmorphing, patterns,shapes}
+%\counterwithout{figure}{chapter}
+%\counterwithout{table}{chapter}
+\title{}
+\graphicspath{ {./IMAGES/} } 
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\theoremstyle{definition}
+\newtheorem{thm}{\indent Theorem}[chapter]
+
+%\bf\textsl
+% The following are the environments defined. 
+\newtheorem{define}{\indent Definition}[chapter]
+\newtheorem{prop}[thm]{\indent Proposition}
+\newtheorem{lem}[thm]{\indent Lemma}
+\newtheorem{cor}[thm]{\indent Corollary}
+\newtheorem{ex}{\indent Example}[chapter]
+\newtheorem{rem}{\indent Remark}[chapter]
+\newtheorem*{rem*}{\indent Remark}
+\newtheorem{con}{\indent Conjecture}[chapter]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\ds{\displaystyle} % instead of typing \displaystyle everytime you use it, you can just use \ds.
+\def\lt{\left}
+\def\rt{\right}
+\def\indent{\hspace*{.5cm}}
+\def\vs{\vskip .1in}
+
+\font\msbm=msbm10 at 12pt
+\font\msbmmm=msbm10 at 10pt
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+%\newcommand{\QQ}{\mbox{\msbm Q}}
+\newcommand{\FF}{\mathbb{F}}
+\newcommand{\TT}{\mathbb{T}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\PP}{\mathcal{P}}
+\newcommand{\T}{\mathcal{T}}
+\newcommand{\om}{\omega}
+\newcommand{\bt}{\beta}
+\newcommand{\lmb}{\lambda}
+
+\newcommand{\pf}{\vspace{-3mm} Proof:\hspace{.25cm}\begin{itemize} \item[]}
+%Command for start of proof
+\newcommand{\epf}{\hfill\rule{2mm}{2mm}\end{itemize}}
+%Command for end of proof
+
+\font\msb=msbm10 at 17pt
+\newcommand{\ZZZ}{\mbox{\msb Z}}
+\newcommand{\FFF}{\mbox{\msb F}}
+
+\begin{document}
+
+
+\begin{tikzpicture}
+ \draw[snake=zigzag]                          (0,2.5) -- (3,2.5);      
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[thick] 
+  \draw                                        (0,3)   -- (3,3); 
+  \draw[snake=zigzag]                          (0,2.5) -- (3,2.5); 
+  \draw[snake=brace]                           (0,2)   -- (3,2); 
+  \draw[snake=triangles]                       (0,1.5) -- (3,1.5); 
+  \draw[snake=coil,segment length=4pt]         (0,1)   -- (3,1); 
+  \draw[snake=coil,segment aspect=0]           (0,.5)  -- (3,.5); 
+  \draw[snake=expanding waves,segment angle=7] (0,0)   -- (3,0); 
+\end{tikzpicture}
+
+\begin{tikzpicture}[line width=10pt] 
+  \draw (0,0) --(1,1)  (1,1) --(2,0); 
+  \draw (3,0) -- (4,1) -- (5,0); 
+  \useasboundingbox (0,1.5); % make bounding box higher 
+\end{tikzpicture}
+
+\begin{tikzpicture} 
+  \node (a) {A}   node (b) at (2,1) {B}  node (c) at (2,-1) {C}; 
+  \draw[snake=zigzag]                                 (a) -- (b); 
+  \draw[snake=zigzag,segment amplitude=5pt,red,thick] (a) -- (c); 
+\end{tikzpicture}
+
+\begin{tikzpicture} 
+  \node (a) {A}   node (b) at (2,1) {B}  node (c) at (2,-1) {C}; 
+  \draw[snake=zigzag]                                 (a) -- (b); 
+  \draw[snake=zigzag,segment amplitude=5pt,red,thick] (a) -- (c); 
+\end{tikzpicture}
+
+\begin{tikzpicture}
+\draw [snake=zigzag][decorate, decoration=zigzag]                        (0,2.5) -- (3,2.5);
+\end{tikzpicture}
+\newpage
+
+
+\begin{center}
+\resizebox {0.8\textwidth} {0.9\height}
+{
+\begin{tikzpicture} [shorten >=2pt, auto, node distance=1cm,
+		node_style1/.style={circle,draw=black,fill=black!100!,font=\sffamily},
+		node_style/.style={circle,draw=black, fill=black!20!,font=\sffamily},
+		edge_style/.style={draw=black},
+		edge_style1/.style={snake=zigzag,decorate,decoration=zigzag}]
+		\node[node_style1,label=below:$v_{0}$,] (v0) at (0,0) {} ;
+		\node[node_style1,label=below:$v_{1}$,] (v1) at (2,0)  ;
+			\node[node_style1,label=above:$\overline{P}_{3}$] (p31) at (2,8)  ;
+			\node[node_style1] (p32) at (2,6)  ;
+			\node[node_style1] (p33) at (2,4)  ;
+			\node[node_style1] (p34) at (2,2)  ;
+		\node[node_style1,label=below:$v_{2}$,] (v2) at (4,0)  ;
+		    \node[node_style1,label=above:$\overline{P}_{4}$] (p41) at (4,10)  ;
+			\node[node_style1] (p42) at (4,8)  ;
+			\node[node_style1] (p43) at (4,6)  ;
+			\node[node_style1] (p44) at (4,4)  ;
+			\node[node_style1] (p45) at (4,2)  ;
+		\node[node_style1,label=below:$v_{3}$,] (v3) at (6,0)  ;
+		    \node[node_style1,label=above:$\overline{P}_{5}$] (p51) at (6,12)  ;
+			\node[node_style1] (p52) at (6,10)  ;
+			\node[node_style1] (p53) at (6,8)  ;
+			\node[node_style1] (p54) at (6,6)  ;
+			\node[node_style1] (p55) at (6,4)  ;
+			\node[node_style1] (p56) at (6,2)  ;
+		\node[node_style1,label=below:$v_{4}$,] (v4) at (8,0)  ;
+		    \node[node_style1,label=above:$\overline{P}_{6}$] (p61) at (8,14)  ;
+			\node[node_style1] (p62) at (8,12)  ;
+			\node[node_style1] (p63) at (8,10)  ;
+			\node[node_style1] (p64) at (8,8)  ;
+			\node[node_style1] (p65) at (8,6)  ;
+			\node[node_style1] (p66) at (8,4)  ;
+			\node[node_style1] (p67) at (8,2)  ;
+		\node[node_style1,label=below:$v_{n-2}$,] (v5) at (10,0)  ;
+		    \node[node_style1,label=above:$\overline{P}_{n}$] (p71) at (10,18)  ;
+			\node[node_style1] (p72) at (10,16)  ;
+			\node[node_style1] (p73) at (10,14)  ;
+			\node[node_style1] (p74) at (10,12)  ;
+			\node[node_style1] (p75) at (10,10)  ;
+			\node[node_style1] (p76) at (10,8)  ;
+			\node[node_style1] (p77) at (10,6)  ;
+			\node[node_style1] (p78) at (10,4)  ;
+			\node[node_style1] (p79) at (10,2)  ;
+		\node[node_style1,label=below:$v_{n-1}$,] (v6) at (12,0)  ;
+		    \node[node_style1,label=above:$\overline{P}_{n+1}$] (p81) at (12,20)  ;
+			\node[node_style1] (p82) at (12,18)  ;
+			\node[node_style1] (p83) at (12,16)  ;
+			\node[node_style1] (p84) at (12,14)  ;
+			\node[node_style1] (p85) at (12,12)  ;
+			\node[node_style1] (p86) at (12,10)  ;
+			\node[node_style1] (p87) at (12,8)  ;
+			\node[node_style1] (p88) at (12,6)  ;
+			\node[node_style1] (p89) at (12,4)  ;
+			\node[node_style1] (p810) at (12,2)  ;
+		\node[node_style1,label=below:$v_{n}$,] (v7) at (14,0)  ;
+		    \node[node_style1,label=above:$\overline{P}_{n+2}$] (p91) at (14,22)  ;
+			\node[node_style1] (p92) at (14,20)  ;
+			\node[node_style1] (p93) at (14,18)  ;
+			\node[node_style1] (p94) at (14,16)  ;
+			\node[node_style1] (p95) at (14,14)  ;
+			\node[node_style1] (p96) at (14,12)  ;
+			\node[node_style1] (p97) at (14,10)  ;
+			\node[node_style1] (p98) at (14,8)  ;
+			\node[node_style1] (p99) at (14,6)  ;
+			\node[node_style1] (p910) at (14,4)  ;
+			\node[node_style1] (p911) at (14,2)  ;
+		
+		
+		\draw[edge_style]  (v0) edge node{} (v1);
+		    \draw[edge_style]  (p31) edge node{} (p32);
+		    \draw[edge_style]  (p32) edge node{} (p33);
+		    \draw[edge_style]  (p33) edge node{} (p34);
+		    
+		\draw[edge_style]  (v1) edge node{} (v2);
+		    \draw[edge_style]  (p41) edge node{} (p42);
+		    \draw[edge_style]  (p42) edge node{} (p43);
+		    \draw[edge_style]  (p43) edge node{} (p44);
+		    \draw[edge_style]  (p44) edge node{} (p45);
+		\draw[edge_style]  (v2) edge node{} (v3);
+		    \draw[edge_style]  (p51) edge node{} (p52);
+		    \draw[edge_style]  (p52) edge node{} (p53);
+		    \draw[edge_style]  (p53) edge node{} (p54);
+		    \draw[edge_style]  (p54) edge node{} (p55);
+		    \draw[edge_style]  (p55) edge node{} (p56);
+		\draw[edge_style]  (v3) edge node{} (v4);
+		    \draw[edge_style]  (p61) edge node{} (p62);
+		    \draw[edge_style]  (p62) edge node{} (p63);
+		    \draw[edge_style]  (p63) edge node{} (p64);
+		    \draw[edge_style]  (p64) edge node{} (p65);
+		    \draw[edge_style]  (p65) edge node{} (p66);
+		    \draw[edge_style]  (p66) edge node{} (p67);
+		\draw[edge_style]  (v5) edge node{} (v6);
+		    \draw[edge_style]  (p71) edge node{} (p72);
+		    \draw[edge_style1]  (10,16) -- (10,14);
+		    \draw[edge_style]  (p73) edge node{} (p74);
+		    \draw[edge_style]  (p74) edge node{} (p75);
+		    \draw[edge_style]  (p75) edge node{} (p76);
+		    \draw[edge_style]  (p76) edge node{} (p77);
+		    \draw[edge_style]  (p77) edge node{} (p78);
+		    \draw[edge_style]  (p78) edge node{} (p79);
+		\draw[edge_style]  (v6) edge node{} (v7);
+		    \draw[edge_style]  (p81) edge node{} (p82);
+		    \draw[edge_style1]  (12,16) -- (12,14);
+		    \draw[edge_style]  (p82) edge node{} (p83);
+		    \draw[edge_style]  (p84) edge node{} (p85);
+		    \draw[edge_style]  (p85) edge node{} (p86);
+		    \draw[edge_style]  (p86) edge node{} (p87);
+		    \draw[edge_style]  (p87) edge node{} (p88);
+		    \draw[edge_style]  (p88) edge node{} (p89);
+		    \draw[edge_style]  (p89) edge node{} (p810);
+		\draw[edge_style1]  (8,0) -- (10,0);
+            \draw[edge_style]  (p91) edge node{} (p92);
+		    \draw[edge_style1]  (14,16) -- (14,14);
+		    \draw[edge_style]  (p92) edge node{} (p93);
+		    \draw[edge_style]  (p93) edge node{} (p94);
+		    \draw[edge_style]  (p95) edge node{} (p96);
+		    \draw[edge_style]  (p96) edge node{} (p97);
+		    \draw[edge_style]  (p97) edge node{} (p98);
+		    \draw[edge_style]  (p98) edge node{} (p99);
+		    \draw[edge_style]  (p99) edge node{} (p910);
+		    \draw[edge_style]  (p910) edge node{} (p911);
+
+\end{tikzpicture}
+}
+	\end{center}
+	
+	
+\begin{center}
+	\resizebox {0.5\textwidth} {0.6\height} {
+	\begin{tikzpicture}[shorten >=2pt, auto, node distance=1cm,
+		node_style1/.style={circle,draw=black,fill=white!20!,font=\sffamily},
+		node_style/.style={circle,draw=black, fill=black!20!,font=\sffamily},
+		edge_style/.style={draw=black}]
+		
+		\node[node_style] (n0) at (0,0)  {0};
+		\node[node_style1] (n1) at (2,0)  {30};
+		\node[node_style] (n2) at (4,0)  {4};
+		\node[node_style1] (n3) at (6,0)  {25};
+		\node[node_style] (n4) at (8,0)  {10};
+		\node[node_style] (n5) at (2,2)  {1};
+	    \node[node_style1] (n6) at (4,2)  {27};
+		\node[node_style] (n7) at (4,4)  {5};
+		\node[node_style] (n8) at (6,2)  {7};
+		\node[node_style1] (n9) at (6,4)  {26};
+		\node[node_style] (n10) at (6,6)  {6};
+		\node[node_style1] (n11) at (8,2)  {22};
+	    \node[node_style] (n12) at (8,4)  {11};
+		\node[node_style1] (n13) at (8,6)  {21};
+		\node[node_style] (n14) at (8,8)  {12};
+		\node[node_style] (n15) at (2,-2)  {2};
+		\node[node_style1] (n16) at (2,-4)  {29};
+		\node[node_style1] (n17) at (4,-2)  {28};
+		\node[node_style] (n18) at (4,-4)  {3};
+		\node[node_style] (n19) at (6,-2)  {8};
+	    \node[node_style1] (n20) at (6,-4)  {24};
+		\node[node_style1] (n21) at (8,-2)  {23};
+		\node[node_style] (n22) at (8,-4)  {9};
+		\node[node_style1] (n23) at (10,0)  {18};
+		\node[node_style] (n24) at (10,2)  {15};
+		\node[node_style1] (n25) at (10,4)  {19};
+		\node[node_style] (n26) at (10,6)  {14};
+		\node[node_style1] (n27) at (10,8)  {20};
+	    \node[node_style] (n28) at (10,10)  {13};
+		\node[node_style] (n29) at (10,-2)  {16};
+		\node[node_style1] (n30) at (10,-4)  {17};
+
+		\draw[edge_style]  (n0) edge node{30} (n1);
+    	\draw[edge_style]  (n1) edge node{26} (n2);
+    	\draw[edge_style]  (n2) edge node{21} (n3);
+    	\draw[edge_style]  (n3) edge node{15} (n4);
+    	\draw[edge_style]  (n1) edge node{29} (n5);
+    	\draw[edge_style]  (n2) edge node{23} (n6);
+    	\draw[edge_style]  (n6) edge node{22} (n7);
+    	\draw[edge_style]  (n3) edge node{18} (n8);
+    	\draw[edge_style]  (n8) edge node{19} (n9);
+    	\draw[edge_style]  (n9) edge node{20} (n10);
+    	\draw[edge_style]  (n4) edge node{12} (n11);
+    	\draw[edge_style]  (n11) edge node{11} (n12);
+    	\draw[edge_style]  (n12) edge node{10} (n13);
+    	\draw[edge_style]  (n13) edge node{9} (n14);
+    	\draw[edge_style]  (n1) edge node{28} (n15);
+    	\draw[edge_style]  (n15) edge node{27} (n16);
+    	\draw[edge_style]  (n2) edge node{24} (n17);
+    	\draw[edge_style]  (n17) edge node{25} (n18);
+    	\draw[edge_style]  (n3) edge node{17} (n19);
+    	\draw[edge_style]  (n19) edge node{16} (n20);
+    	\draw[edge_style]  (n4) edge node{13} (n21);
+		\draw[edge_style]  (n21) edge node{14} (n22);
+		\draw[edge_style]  (n4) edge node{8} (n23);
+    	\draw[edge_style]  (n23) edge node{3} (n24);
+    	\draw[edge_style]  (n24) edge node{4} (n25);
+    	\draw[edge_style]  (n25) edge node{5} (n26);
+    	\draw[edge_style]  (n26) edge node{6} (n27);
+    	\draw[edge_style]  (n27) edge node{7} (n28);
+    	\draw[edge_style]  (n23) edge node{2} (n29);
+		\draw[edge_style]  (n29) edge node{1} (n30);
+		\end{tikzpicture}}\\
+
+\end{document}
